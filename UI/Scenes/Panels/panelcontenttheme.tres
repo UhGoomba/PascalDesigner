@@ -1,0 +1,53 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://cx0khfexmc27e"]
+
+[ext_resource type="FontFile" uid="uid://6fuqwh488trg" path="res://UI/Fonts/pixeloid.mono.otf" id="1_jwco1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_658sf"]
+bg_color = Color(0.145098, 0.145098, 0.145098, 1)
+border_width_left = 4
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.145098, 0.145098, 0.145098, 1)
+expand_margin_left = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aat73"]
+bg_color = Color(0.407843, 0.407843, 0.407843, 1)
+border_width_left = 4
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.145098, 0.145098, 0.145098, 1)
+expand_margin_left = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ii4dc"]
+bg_color = Color(0.509804, 0.509804, 0.509804, 1)
+border_width_left = 4
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.145098, 0.145098, 0.145098, 1)
+expand_margin_left = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a3hmc"]
+bg_color = Color(1, 1, 1, 0.0588235)
+
+[resource]
+Button/fonts/font = ExtResource("1_jwco1")
+Button/styles/disabled = SubResource("StyleBoxFlat_658sf")
+Button/styles/focus = SubResource("StyleBoxFlat_658sf")
+Button/styles/hover = SubResource("StyleBoxFlat_aat73")
+Button/styles/normal = SubResource("StyleBoxFlat_658sf")
+Button/styles/pressed = SubResource("StyleBoxFlat_ii4dc")
+CheckBox/styles/pressed = SubResource("StyleBoxFlat_658sf")
+Label/fonts/font = ExtResource("1_jwco1")
+Label/styles/normal = null
+LineEdit/fonts/font = ExtResource("1_jwco1")
+OptionButton/fonts/font = ExtResource("1_jwco1")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_a3hmc")
+TabBar/fonts/font = ExtResource("1_jwco1")
+TabContainer/fonts/font = ExtResource("1_jwco1")
+TextEdit/fonts/font = ExtResource("1_jwco1")
+TextEdit/styles/focus = SubResource("StyleBoxFlat_aat73")
+TextEdit/styles/normal = SubResource("StyleBoxFlat_658sf")
+TextEdit/styles/read_only = SubResource("StyleBoxFlat_658sf")

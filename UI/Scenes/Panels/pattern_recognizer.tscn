@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://b504u4coj382r"]
+
+[ext_resource type="PackedScene" uid="uid://cs7rpfx66pqs6" path="res://UI/Scenes/ui_panel.tscn" id="1_t7irh"]
+
+[node name="PatternRecognizer" instance=ExtResource("1_t7irh")]
+offset_right = 460.0
+
+[node name="VBoxContainer" parent="HBoxContainer" index="1"]
+custom_minimum_size = Vector2(460, 0)
+
+[node name="Label" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer" index="1"]
+text = "pattern recognizer"

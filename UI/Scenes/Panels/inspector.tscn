@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://q1f75f6mbd76"]
+
+[ext_resource type="PackedScene" uid="uid://cs7rpfx66pqs6" path="res://UI/Scenes/ui_panel.tscn" id="1_gv2rh"]
+[ext_resource type="Theme" uid="uid://cx0khfexmc27e" path="res://UI/Scenes/Panels/panelcontenttheme.tres" id="2_bju3l"]
+
+[node name="Inspector" instance=ExtResource("1_gv2rh")]
+custom_minimum_size = Vector2(460, 0)
+offset_right = 360.0
+
+[node name="VBoxContainer" parent="HBoxContainer" index="1"]
+custom_minimum_size = Vector2(460, 0)
+
+[node name="Label" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer" index="1"]
+text = "inspector
+"
+
+[node name="NothingSelected" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/NothingSelected" index="0"]
+layout_mode = 2
+theme = ExtResource("2_bju3l")
+theme_type_variation = &"HeaderLarge"
+text = "Nothing Selected"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="PointSelected" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2

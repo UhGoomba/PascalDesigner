@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhxn5evj33ow7"]
+
+[ext_resource type="PackedScene" uid="uid://cs7rpfx66pqs6" path="res://UI/Scenes/ui_panel.tscn" id="1_dq0ic"]
+[ext_resource type="Theme" uid="uid://cx0khfexmc27e" path="res://UI/Scenes/Panels/panelcontenttheme.tres" id="2_4kch7"]
+
+[node name="ViewPanel" instance=ExtResource("1_dq0ic")]
+
+[node name="Label" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer" index="1"]
+text = "view settings"
+
+[node name="TabContainer" type="TabContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="0"]
+layout_mode = 2
+theme = ExtResource("2_4kch7")
+tab_alignment = 1
+clip_tabs = false
+
+[node name="Front View" type="PanelContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TabContainer" index="1"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_4kch7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TabContainer/Front View" index="0"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Top View" type="PanelContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TabContainer" index="2"]
+layout_mode = 2
+theme = ExtResource("2_4kch7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TabContainer/Top View" index="0"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="3D" type="PanelContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TabContainer" index="3"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_4kch7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TabContainer/3D" index="0"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2

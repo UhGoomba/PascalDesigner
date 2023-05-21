@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8mb88pxwev12"]
+
+[ext_resource type="PackedScene" uid="uid://cs7rpfx66pqs6" path="res://UI/Scenes/ui_panel.tscn" id="1_a2by0"]
+[ext_resource type="Theme" uid="uid://cx0khfexmc27e" path="res://UI/Scenes/Panels/panelcontenttheme.tres" id="2_7duff"]
+
+[node name="StepByStepComputePanel" instance=ExtResource("1_a2by0")]
+
+[node name="Label" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer" index="1"]
+text = "step by step"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+layout_mode = 2
+theme = ExtResource("2_7duff")
+text = "enable"
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_7duff")
+text = "Next Step"
