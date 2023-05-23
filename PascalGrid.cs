@@ -26,6 +26,7 @@ public class PascalGrid
 	private Queue<int> _linesLeftInCompute;
 
 	private int _backgroundValue = 1;
+	private int _triangleCellStartingValue = 0;
 	private ComputeOperator _computeOperator = ComputeOperator.Addition;
 
 	public PascalGrid()
@@ -44,10 +45,9 @@ public class PascalGrid
 		_lines = _lines.Where(line => line.Cells.Count() > 0).ToList();
 		if(_linesLeftInCompute != null) _linesLeftInCompute.Clear();
 	}
-	public void PrepareCompute(int lineRange, ComputeOperator computeOperator)
+	public void PrepareCompute(int lineRange)
 	{
 		_linesLeftInCompute = new Queue<int>();
-		_computeOperator = computeOperator;
 		
 		foreach (PascalGridCellFixed fixedCell in _fixedCells.OrderByDescending(cell => cell.Position.W)) // TODO - CHANGE METHOD OF GETTINGS LINES TO COMPUTE
 		{
@@ -82,6 +82,7 @@ public class PascalGrid
 					if (cell.Children[i] == null)
 					{
 						cell.Children[i] = GetCellAtPosition(childrenPositions[i]);
+						cell.Children[i].SetValue(_triangleCellStartingValue);
 						AddCell(cell.Children[i]);
 					}
 				}
@@ -198,6 +199,16 @@ public class PascalGrid
 	public void SetBackgroundValue(int backgroundValue)
 	{
 		_backgroundValue = backgroundValue;
+	}
+	
+	public void SetTriangleCellStartingValue(int triangleCellStartingValue)
+	{
+		_triangleCellStartingValue = triangleCellStartingValue;
+	}
+
+	public void SetComputeOperator(ComputeOperator computeOperator)
+	{
+		_computeOperator = computeOperator;
 	}
 	
 }

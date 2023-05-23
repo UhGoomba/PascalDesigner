@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6i002c0arddl"
-path="res://.godot/imported/rsz_funnynumberbg.png-0169dc416601df5ce5c0edae570de12e.ctex"
+uid="uid://bh210ytknvg8c"
+path="res://.godot/imported/bglongg.png-f7bcedcd5948a5d30690c8e7ea2ea661.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://rsz_funnynumberbg.png"
-dest_files=["res://.godot/imported/rsz_funnynumberbg.png-0169dc416601df5ce5c0edae570de12e.ctex"]
+source_file="res://bglongg.png"
+dest_files=["res://.godot/imported/bglongg.png-f7bcedcd5948a5d30690c8e7ea2ea661.ctex"]
 
 [params]
 

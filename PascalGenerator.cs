@@ -6,19 +6,23 @@ using PascalDesigner;
 public partial class PascalGenerator : Node3D
 {
 	private PascalGrid _grid = new PascalGrid();
+	private UIVars _uiVars;
 	private List<TextDisplay3D> textDisplays = new List<TextDisplay3D>();
 
 	public override void _Ready()
 	{
-		GetNode<UIVars>("/root/UIVars").PascalGenerator = this;
+		_uiVars = GetNode<UIVars>("/root/UIVars");
+		_uiVars.PascalGenerator = this;
 		_grid.AddCell(new PascalGridCellFixed(1,new JamisonianCoordinate(0,0,0,0)));
 	}
 
-	public void Compute(int linesToCompute, int backgroundValue, ComputeOperator computeOperator)
+	public void Compute()
 	{
 		ClearAllValues();
-		_grid.SetBackgroundValue(backgroundValue);
-		_grid.PrepareCompute(linesToCompute, computeOperator);
+		_grid.SetBackgroundValue(_uiVars.BackgroundValue);
+		_grid.SetTriangleCellStartingValue(_uiVars.TriangleCellStartingValue);
+		_grid.SetComputeOperator(_uiVars.Operator);
+		_grid.PrepareCompute(_uiVars.LinesToCompute);
 		_grid.FinishCompute();
 
 		var renderData = _grid.GetRenderData();

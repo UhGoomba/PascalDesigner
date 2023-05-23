@@ -9,4 +9,5 @@ public partial class UIVars : Node
 	public ComputeOperator Operator;
 	public int LinesToCompute;
 	public int BackgroundValue;
+	public int TriangleCellStartingValue;
 }

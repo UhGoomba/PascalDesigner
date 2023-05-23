@@ -38,7 +38,27 @@ theme = ExtResource("2_7hglg")
 text = "background number"
 label_settings = SubResource("LabelSettings_oryb3")
 
-[node name="OperationType" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="1"]
+[node name="TriangleCellStartingNumber" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SpinBox" type="SpinBox" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TriangleCellStartingNumber" index="0"]
+layout_mode = 2
+theme = ExtResource("2_7hglg")
+min_value = -10000.0
+max_value = 10000.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+update_on_text_changed = true
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TriangleCellStartingNumber" index="1"]
+layout_mode = 2
+theme = ExtResource("2_7hglg")
+text = "triangle cell starting number"
+label_settings = SubResource("LabelSettings_oryb3")
+
+[node name="OperationType" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="2"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -72,4 +92,5 @@ text = "operation type"
 label_settings = SubResource("LabelSettings_oryb3")
 
 [connection signal="value_changed" from="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/BackgroundNumber/SpinBox" to="." method="On_BackgroundValueValueChanged"]
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TriangleCellStartingNumber/SpinBox" to="." method="On_TriangleCellStartingValueValueChanged"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OperationType/OptionButton" to="." method="On_OperationOptionButtonItemSelected"]

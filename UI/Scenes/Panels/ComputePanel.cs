@@ -12,7 +12,7 @@ public partial class ComputePanel : MenuPanel
 
 	private void On_ComputeButtonPressed()
 	{
-		UIVars.PascalGenerator.Compute(UIVars.LinesToCompute,UIVars.BackgroundValue,UIVars.Operator);
+		UIVars.PascalGenerator.Compute();
 	}
 	
 	private void On_ClearValuesButtonPressed()

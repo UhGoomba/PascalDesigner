@@ -7,7 +7,7 @@ public partial class TextDisplay3D : Node3D
 
 	public void SetText(String text)
 	{
-		if(_label == null) _label = GetNode("SubViewport/MarginContainer/MarginContainer/CenterContainer/Label") as Label;
+		if(_label == null) _label = GetNode("SubViewport/Control/MarginContainer/MarginContainer/CenterContainer/Label") as Label;
 		_label.Text = text;
 	}
 }

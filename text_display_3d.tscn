@@ -1,14 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://d3h06fgbq4usi"]
 
 [ext_resource type="Script" path="res://PascalGridCellDisplay3D.cs" id="1_w76gr"]
-[ext_resource type="Texture2D" uid="uid://b6i002c0arddl" path="res://rsz_funnynumberbg.png" id="2_vf6u0"]
+[ext_resource type="Texture2D" uid="uid://bh210ytknvg8c" path="res://bglongg.png" id="2_m6kc7"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_u8urr"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="LabelSettings" id="LabelSettings_i161l"]
-font_size = 333
-outline_size = 126
+font_size = 60
+outline_size = 24
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 0
 shadow_offset = Vector2(0, 0)
@@ -17,52 +17,60 @@ shadow_offset = Vector2(0, 0)
 script = ExtResource("1_w76gr")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-pixel_size = 0.0003
+pixel_size = 0.003
 billboard = 1
 texture = SubResource("ViewportTexture_u8urr")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 disable_3d = true
 transparent_bg = true
-size = Vector2i(1500, 500)
+size = Vector2i(256, 128)
 render_target_update_mode = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="SubViewport"]
+[node name="Control" type="Control" parent="SubViewport"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -1.0
+offset_right = 256.0
+offset_bottom = 127.0
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewport/Control"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -250.0
-offset_right = 250.0
-offset_bottom = 250.0
+offset_left = -53.0
+offset_top = -50.0
+offset_right = 53.0
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="NinePatchRect" type="NinePatchRect" parent="SubViewport/MarginContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="SubViewport/Control/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
-texture = ExtResource("2_vf6u0")
-region_rect = Rect2(0, 0, 750, 500)
-patch_margin_left = 250
-patch_margin_top = 250
-patch_margin_right = 250
-patch_margin_bottom = 250
+texture = ExtResource("2_m6kc7")
+region_rect = Rect2(0, 0, 200, 100)
+patch_margin_left = 53
+patch_margin_top = 50
+patch_margin_right = 53
+patch_margin_bottom = 50
 
-[node name="MarginContainer" type="MarginContainer" parent="SubViewport/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="SubViewport/Control/MarginContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 150
+theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 150
+theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 0
 
-[node name="CenterContainer" type="CenterContainer" parent="SubViewport/MarginContainer/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="SubViewport/Control/MarginContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SubViewport/MarginContainer/MarginContainer/CenterContainer"]
+[node name="Label" type="Label" parent="SubViewport/Control/MarginContainer/MarginContainer/CenterContainer"]
 layout_mode = 2
 text = "1"
 label_settings = SubResource("LabelSettings_i161l")
