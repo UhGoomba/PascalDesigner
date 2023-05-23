@@ -7,14 +7,14 @@ namespace PascalDesigner;
 
 public enum ComputeOperator
 {
-	Addition,
-	SubtractionBT,
-	SubtractionTB,
-	Multiplication,
-	DivisionBT,
-	DivisionTB,
-	ExponentialBT,
-	ExponentialTB
+	Addition = 0,
+	SubtractionBT = 1,
+	SubtractionTB = 2,
+	Multiplication = 3,
+	DivisionBT = 4,
+	DivisionTB = 5,
+	ExponentialBT = 6,
+	ExponentialTB = 7
 }
 public class PascalGrid
 {
@@ -25,15 +25,30 @@ public class PascalGrid
 
 	private Queue<int> _linesLeftInCompute;
 
+	private int _backgroundValue = 1;
+	private ComputeOperator _computeOperator = ComputeOperator.Addition;
+
 	public PascalGrid()
 	{
 		
 	}
-	
-	public void PrepareCompute(int lineRange)
+
+	public void ClearValues()
+	{
+		foreach (PascalGridLine line in _lines)
+		{
+			line.Cells = line.Cells.Where(cell => cell is PascalGridCellFixed).ToList();
+			line.Cells.ForEach(cell => cell.ResetCell());
+		}
+
+		_lines = _lines.Where(line => line.Cells.Count() > 0).ToList();
+		if(_linesLeftInCompute != null) _linesLeftInCompute.Clear();
+	}
+	public void PrepareCompute(int lineRange, ComputeOperator computeOperator)
 	{
 		_linesLeftInCompute = new Queue<int>();
-
+		_computeOperator = computeOperator;
+		
 		foreach (PascalGridCellFixed fixedCell in _fixedCells.OrderByDescending(cell => cell.Position.W)) // TODO - CHANGE METHOD OF GETTINGS LINES TO COMPUTE
 		{
 			for (int i = 0; i < lineRange; i++)
@@ -53,7 +68,7 @@ public class PascalGrid
 			
 		foreach (PascalGridCell cell in line.Cells)
 		{
-			cell.SetValue(cell.GetParentPositions().Select(pascalCell => GetCellAtPosition(pascalCell)).Select(pascalCell => pascalCell.Value).Sum()); // TODO - Make this work with multiple types of equations
+			EvaluateCellValue(cell);
 
 			JamisonianCoordinate[] childrenPositions = cell.GetChildrenPositions();
 			
@@ -77,12 +92,50 @@ public class PascalGrid
 		{
 			foreach (PascalGridCell cell in lineBelow.Cells)
 			{
-				cell.SetValue(cell.GetParentPositions().Select(pascalCell => GetCellAtPosition(pascalCell)).Select(pascalCell => pascalCell.Value).Sum());
+				EvaluateCellValue(cell);
 			}
 
 			if (OnComputeFinished != null) OnComputeFinished(this, EventArgs.Empty);
 		}
 	}
+
+	private void EvaluateCellValue(PascalGridCell cell)
+	{
+		var parentValues = cell.GetParentPositions().Select(pascalCell => GetCellAtPosition(pascalCell))
+			.Select(pascalCell => pascalCell.Value); // TODO - Make this work with multiple types of equations
+			
+		foreach (int value in parentValues)
+		{
+			switch (_computeOperator)
+			{
+				case ComputeOperator.Addition:
+					cell.SetValue(cell.Value + value);
+					break;
+				case ComputeOperator.Multiplication:
+					cell.SetValue(cell.Value * value);
+					break;
+				case ComputeOperator.DivisionBT:
+					cell.SetValue(cell.Value / value);
+					break;
+				case ComputeOperator.DivisionTB:
+					cell.SetValue(value / cell.Value);
+					break;
+				case ComputeOperator.ExponentialBT:
+					cell.SetValue(Mathf.RoundToInt(Mathf.Pow((float)cell.Value, (float)value)));
+					break;
+				case ComputeOperator.ExponentialTB:
+					cell.SetValue(Mathf.RoundToInt(Mathf.Pow((float)value,(float)cell.Value)));
+					break;
+				case ComputeOperator.SubtractionBT:
+					cell.SetValue(cell.Value - value);
+					break;
+				case ComputeOperator.SubtractionTB:
+					cell.SetValue(value - cell.Value);
+					break;
+			}
+		}
+	}
+	
 	public void FinishCompute()
 	{
 		while (_linesLeftInCompute.Any())
@@ -134,12 +187,17 @@ public class PascalGrid
 			if (foundCell != null) return foundCell;
 		}
 
-		return new PascalGridCell(0, position); // TODO - Change hardcoded background value
+		return new PascalGridCell(_backgroundValue, position); // TODO - Change hardcoded background value
 	}
 	
 	public int GetValueAtPosition(JamisonianCoordinate position)
 	{
 		return GetCellAtPosition(position).Value;
+	}
+
+	public void SetBackgroundValue(int backgroundValue)
+	{
+		_backgroundValue = backgroundValue;
 	}
 	
 }
@@ -185,6 +243,11 @@ public class PascalGridCell
 	public virtual void SetValue(int value)
 	{
 		Value = value;
+	}
+
+	public virtual void ResetCell()
+	{
+		Children = null;
 	}
 }
 

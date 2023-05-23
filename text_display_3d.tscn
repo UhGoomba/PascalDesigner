@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://d3h06fgbq4usi"]
 
-[ext_resource type="Script" path="res://TextDisplay3D.cs" id="1_lt44s"]
+[ext_resource type="Script" path="res://PascalGridCellDisplay3D.cs" id="1_w76gr"]
 [ext_resource type="Texture2D" uid="uid://b6i002c0arddl" path="res://rsz_funnynumberbg.png" id="2_vf6u0"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_u8urr"]
@@ -14,7 +14,7 @@ shadow_size = 0
 shadow_offset = Vector2(0, 0)
 
 [node name="TextDisplay3D" type="Node3D"]
-script = ExtResource("1_lt44s")
+script = ExtResource("1_w76gr")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 pixel_size = 0.0003

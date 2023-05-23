@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://crto2m73f33q4"]
+[gd_scene load_steps=6 format=3 uid="uid://crto2m73f33q4"]
 
 [ext_resource type="PackedScene" uid="uid://cs7rpfx66pqs6" path="res://UI/Scenes/ui_panel.tscn" id="1_3j1ib"]
 [ext_resource type="Theme" uid="uid://cx0khfexmc27e" path="res://UI/Scenes/Panels/panelcontenttheme.tres" id="2_7hglg"]
+[ext_resource type="Script" path="res://UI/Scenes/Panels/GlobalSettingsPanel.cs" id="2_3410x"]
 [ext_resource type="FontFile" uid="uid://5prm5hlirt8w" path="res://UI/Fonts/pixeloid.sans.otf" id="3_tco4d"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oryb3"]
@@ -9,6 +10,7 @@ font = ExtResource("3_tco4d")
 
 [node name="GlobalSettings" instance=ExtResource("1_3j1ib")]
 custom_minimum_size = Vector2(460, 0)
+script = ExtResource("2_3410x")
 
 [node name="VBoxContainer" parent="HBoxContainer" index="1"]
 custom_minimum_size = Vector2(460, 0)
@@ -25,7 +27,6 @@ layout_mode = 2
 theme = ExtResource("2_7hglg")
 min_value = -10000.0
 max_value = 10000.0
-value = 1.0
 rounded = true
 allow_greater = true
 allow_lesser = true
@@ -45,23 +46,30 @@ theme_override_constants/separation = 10
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_7hglg")
-item_count = 6
+item_count = 8
 selected = 0
 popup/item_0/text = "Addition"
 popup/item_0/id = 0
-popup/item_1/text = "Multiplication"
+popup/item_1/text = "Subtraction (Bottom - Top)"
 popup/item_1/id = 1
-popup/item_2/text = "Subtraction (Bottom - Top)"
+popup/item_2/text = "Subtraction (Top - Bottom)"
 popup/item_2/id = 2
-popup/item_3/text = "Subtraction (Top - Bottom)"
+popup/item_3/text = "Multiplication"
 popup/item_3/id = 3
 popup/item_4/text = "Division (Bottom / Top)"
 popup/item_4/id = 4
 popup/item_5/text = "Division (Top / Bottom)"
 popup/item_5/id = 5
+popup/item_6/text = "Exponential (B^T)"
+popup/item_6/id = 6
+popup/item_7/text = "Exponential (T^B)"
+popup/item_7/id = 7
 
 [node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OperationType" index="1"]
 layout_mode = 2
 theme = ExtResource("2_7hglg")
 text = "operation type"
 label_settings = SubResource("LabelSettings_oryb3")
+
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/BackgroundNumber/SpinBox" to="." method="On_BackgroundValueValueChanged"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OperationType/OptionButton" to="." method="On_OperationOptionButtonItemSelected"]

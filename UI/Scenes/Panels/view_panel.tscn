@@ -15,7 +15,6 @@ tab_alignment = 1
 clip_tabs = false
 
 [node name="Front View" type="PanelContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TabContainer" index="1"]
-visible = false
 layout_mode = 2
 theme = ExtResource("2_4kch7")
 
@@ -24,6 +23,7 @@ custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="Top View" type="PanelContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TabContainer" index="2"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_4kch7")
 

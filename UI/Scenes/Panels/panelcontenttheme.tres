@@ -12,7 +12,7 @@ border_color = Color(0.145098, 0.145098, 0.145098, 1)
 expand_margin_left = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aat73"]
-bg_color = Color(0.407843, 0.407843, 0.407843, 1)
+bg_color = Color(0.388235, 0.388235, 0.388235, 1)
 border_width_left = 4
 border_width_top = 3
 border_width_right = 3
@@ -20,8 +20,8 @@ border_width_bottom = 3
 border_color = Color(0.145098, 0.145098, 0.145098, 1)
 expand_margin_left = 2.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ii4dc"]
-bg_color = Color(0.509804, 0.509804, 0.509804, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jpyjj"]
+bg_color = Color(0.988235, 0.988235, 0.988235, 1)
 border_width_left = 4
 border_width_top = 3
 border_width_right = 3
@@ -35,10 +35,10 @@ bg_color = Color(1, 1, 1, 0.0588235)
 [resource]
 Button/fonts/font = ExtResource("1_jwco1")
 Button/styles/disabled = SubResource("StyleBoxFlat_658sf")
-Button/styles/focus = SubResource("StyleBoxFlat_658sf")
+Button/styles/focus = SubResource("StyleBoxFlat_aat73")
 Button/styles/hover = SubResource("StyleBoxFlat_aat73")
 Button/styles/normal = SubResource("StyleBoxFlat_658sf")
-Button/styles/pressed = SubResource("StyleBoxFlat_ii4dc")
+Button/styles/pressed = SubResource("StyleBoxFlat_jpyjj")
 CheckBox/styles/pressed = SubResource("StyleBoxFlat_658sf")
 Label/fonts/font = ExtResource("1_jwco1")
 Label/styles/normal = null

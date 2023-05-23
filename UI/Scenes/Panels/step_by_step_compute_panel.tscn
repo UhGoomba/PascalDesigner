@@ -4,6 +4,11 @@
 [ext_resource type="Theme" uid="uid://cx0khfexmc27e" path="res://UI/Scenes/Panels/panelcontenttheme.tres" id="2_7duff"]
 
 [node name="StepByStepComputePanel" instance=ExtResource("1_a2by0")]
+offset_right = 362.0
+offset_bottom = 83.0
+
+[node name="VBoxContainer" parent="HBoxContainer" index="1"]
+custom_minimum_size = Vector2(360, 0)
 
 [node name="Label" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer" index="1"]
 text = "step by step"

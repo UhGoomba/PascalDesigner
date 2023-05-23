@@ -1,29 +1,51 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using PascalDesigner;
 
 public partial class PascalGenerator : Node3D
 {
-	private PascalGrid _generator = new PascalGrid();
+	private PascalGrid _grid = new PascalGrid();
+	private List<TextDisplay3D> textDisplays = new List<TextDisplay3D>();
 
 	public override void _Ready()
 	{
-		_generator.AddCell(new PascalGridCellFixed(1,new JamisonianCoordinate(0,0,0,0)));
-		_generator.PrepareCompute(7);
-		_generator.FinishCompute();
+		GetNode<UIVars>("/root/UIVars").PascalGenerator = this;
+		_grid.AddCell(new PascalGridCellFixed(1,new JamisonianCoordinate(0,0,0,0)));
+	}
 
-		var renderData = _generator.GetRenderData();
+	public void Compute(int linesToCompute, int backgroundValue, ComputeOperator computeOperator)
+	{
+		ClearAllValues();
+		_grid.SetBackgroundValue(backgroundValue);
+		_grid.PrepareCompute(linesToCompute, computeOperator);
+		_grid.FinishCompute();
+
+		var renderData = _grid.GetRenderData();
 		var textScene = GD.Load<PackedScene>("res://text_display_3d.tscn");
 		foreach (PascalGridLine line in renderData.lines)
 		{
 			foreach (PascalGridCell cell in line.Cells)
 			{
-				TextDisplay3D text = textScene.Instantiate<TextDisplay3D>();
+				PascalGridCellDisplay3D text = textScene.Instantiate<PascalGridCellDisplay3D>();
 				AddChild(text);
 				text.SetText(cell.Value.ToString());
+				text.SetGridCell(cell);
 				text.GlobalPosition = JamisonianToRectangular(cell.Position).coordinate;
+				textDisplays.Add(text);
 			}
 		}
+	}
+
+	public void ClearAllValues()
+	{
+		foreach (TextDisplay3D textDisplay3D in textDisplays)
+		{
+			textDisplay3D.QueueFree();
+		}
+		
+		textDisplays.Clear();
+		_grid.ClearValues();
 	}
 	
 	private const float J2RHORIZONTALX = 0.5f; // Just the way the wind blows
