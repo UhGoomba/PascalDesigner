@@ -55,7 +55,7 @@ update_on_text_changed = true
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TriangleCellStartingNumber" index="1"]
 layout_mode = 2
 theme = ExtResource("2_7hglg")
-text = "triangle cell starting number"
+text = "triangle background number"
 label_settings = SubResource("LabelSettings_oryb3")
 
 [node name="OperationType" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="2"]

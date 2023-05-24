@@ -31,7 +31,7 @@ public partial class PascalGenerator : Node3D
 		{
 			foreach (PascalGridCell cell in line.Cells)
 			{
-				PascalGridCellDisplay3D text = textScene.Instantiate<PascalGridCellDisplay3D>();
+				PascalGridCellDisplay3D text = textScene.Instantiate() as PascalGridCellDisplay3D;
 				AddChild(text);
 				text.SetText(cell.Value.ToString());
 				text.SetGridCell(cell);

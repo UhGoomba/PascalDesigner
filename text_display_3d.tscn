@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3h06fgbq4usi"]
+[gd_scene load_steps=6 format=3 uid="uid://d3h06fgbq4usi"]
 
 [ext_resource type="Script" path="res://PascalGridCellDisplay3D.cs" id="1_w76gr"]
 [ext_resource type="Texture2D" uid="uid://bh210ytknvg8c" path="res://bglongg.png" id="2_m6kc7"]
@@ -13,11 +13,14 @@ outline_color = Color(0, 0, 0, 1)
 shadow_size = 0
 shadow_offset = Vector2(0, 0)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_trodv"]
+
 [node name="TextDisplay3D" type="Node3D"]
 script = ExtResource("1_w76gr")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-pixel_size = 0.003
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+pixel_size = 0.0106
 billboard = 1
 texture = SubResource("ViewportTexture_u8urr")
 
@@ -74,3 +77,11 @@ layout_mode = 2
 layout_mode = 2
 text = "1"
 label_settings = SubResource("LabelSettings_i161l")
+
+[node name="Collision" type="Area3D" parent="."]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Collision"]
+shape = SubResource("SphereShape3D_trodv")
+
+[connection signal="input_event" from="Collision" to="." method="On_CollisionInputEvent"]
