@@ -173,6 +173,30 @@ public class PascalGrid
 		line.Cells.Add(cell);
 	}
 
+	public void RemoveCell(PascalGridCell cell)
+	{
+		if(cell is PascalGridCellFixed @fixed) _fixedCells.Remove(@fixed);
+		_lines[cell.Position.W].Cells.Remove(cell);
+	}
+
+	public void MoveCell(PascalGridCell cell, JamisonianCoordinate position)
+	{
+		if (!(cell is PascalGridCellFixed))
+		{
+			GD.PrintErr("Non-fixed grid cells can NOT be moved.");
+			return;
+		}
+		/*if (_lines[cell.Position.W].Cells.Contains())
+		{
+			GD.PrintErr("Can not move cell that is not REGISTERED in grid.");
+			return;
+		}*/
+		
+		_lines[cell.Position.W].Cells.Remove(cell);
+		cell.SetPosition(position);
+		AddCell(cell);
+	}
+
 	public (List<PascalGridCellFixed> fixedCells, List<PascalGridLine> lines) GetRenderData()
 	{
 		return (fixedCells: _fixedCells, lines: _lines);
@@ -228,7 +252,7 @@ public class PascalGridCell
 {
 	public int Value { get; private set; }
 	public PascalGridCell[] Children;
-	public readonly JamisonianCoordinate Position;
+	public JamisonianCoordinate Position { get; protected set; }
 	
 	public PascalGridCell(int value, JamisonianCoordinate position)
 	{
@@ -251,11 +275,16 @@ public class PascalGridCell
 		return GetChildrenOffsets().Select(x => Position - x).ToArray();
 	}
 
-	public virtual void SetValue(int value)
+	public virtual void SetValue(int value, bool bypassFixed = false)
 	{
 		Value = value;
 	}
 
+	public virtual void SetPosition(JamisonianCoordinate position)
+	{
+		return;
+	}
+	
 	public virtual void ResetCell()
 	{
 		Children = null;
@@ -271,9 +300,17 @@ public class PascalGridCellFixed : PascalGridCell
 		ComputeOperator = computeOperator;
 	}
 
-	public override void SetValue(int value)
+	public override void SetValue(int value, bool bypassFixed = false)
 	{
+		if(bypassFixed) base.SetValue(value, true);
 		return;
+	}
+
+	public override void SetPosition(JamisonianCoordinate position)
+	{
+		base.SetPosition(position);
+
+		Position = position;
 	}
 }
 
@@ -297,6 +334,11 @@ public class JamisonianCoordinate //lol
 		W = w;
 	}
 
+	public Vector3I GetTriangularCoordinate()
+	{
+		return new Vector3I(X, Y, Z);
+	}
+	
 	#region Operators
 
 	public static JamisonianCoordinate operator +(JamisonianCoordinate a) => a;
@@ -335,11 +377,11 @@ public class JamisonianCoordinate //lol
 	}
 
 	public override int GetHashCode() => (X, Y, Z, W).GetHashCode();
-	
-	#endregion
 
-	public Vector3I GetTriangularCoordinate()
+	public override string ToString()
 	{
-		return new Vector3I(X, Y, Z);
+		return "("+X.ToString()+", "+Y.ToString()+", "+Z.ToString()+", "+W.ToString()+")";
 	}
+
+	#endregion
 }

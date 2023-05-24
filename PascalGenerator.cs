@@ -35,9 +35,7 @@ public partial class PascalGenerator : Node3D
 			{
 				PascalGridCellDisplay3D display = textScene.Instantiate() as PascalGridCellDisplay3D;
 				AddChild(display);
-				display.SetText(cell.Value.ToString());
-				display.SetGridCell(cell);
-				display.GlobalPosition = JamisonianToRectangular(cell.Position).coordinate;
+				display.SetGridCell(cell, _grid);
 				display.SetActive(true);
 				_cellDisplays.Add(display);
 			}
@@ -49,6 +47,7 @@ public partial class PascalGenerator : Node3D
 	{
 		foreach (PascalGridCellDisplay3D textDisplay3D in _cellDisplays)
 		{
+			if (!IsInstanceValid(textDisplay3D)) continue;
 			textDisplay3D.SetActive(false);
 			textDisplay3D.Free(); // TODO - Object Pooling
 		}

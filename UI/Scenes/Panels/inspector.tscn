@@ -1,11 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://q1f75f6mbd76"]
+[gd_scene load_steps=4 format=3 uid="uid://q1f75f6mbd76"]
 
 [ext_resource type="PackedScene" uid="uid://cs7rpfx66pqs6" path="res://UI/Scenes/ui_panel.tscn" id="1_gv2rh"]
 [ext_resource type="Theme" uid="uid://cx0khfexmc27e" path="res://UI/Scenes/Panels/panelcontenttheme.tres" id="2_bju3l"]
+[ext_resource type="Script" path="res://UI/Scenes/Panels/InspectorPanel.cs" id="2_use0d"]
 
-[node name="Inspector" instance=ExtResource("1_gv2rh")]
+[node name="Inspector" node_paths=PackedStringArray("NoSelectedPanel", "OneSelectedPanel", "TooManySelectedPanel", "FixedCellSelectedPanel", "CellSelectedPosition", "CellSelectedValue", "CellFixedSelectedPositionX", "CellFixedSelectedPositionY", "CellFixedSelectedPositionZ", "CellFixedSelectedPositionW", "CellFixedSelectedValue") instance=ExtResource("1_gv2rh")]
 custom_minimum_size = Vector2(460, 0)
 offset_right = 360.0
+script = ExtResource("2_use0d")
+NoSelectedPanel = NodePath("HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/NothingSelected")
+OneSelectedPanel = NodePath("HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelected")
+TooManySelectedPanel = NodePath("HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TooManySelected")
+FixedCellSelectedPanel = NodePath("HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed")
+CellSelectedPosition = NodePath("HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelected/Label")
+CellSelectedValue = NodePath("HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelected/Label2")
+CellFixedSelectedPositionX = NodePath("HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer/SpinBoxX")
+CellFixedSelectedPositionY = NodePath("HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer/SpinBoxY")
+CellFixedSelectedPositionZ = NodePath("HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer/SpinBoxZ")
+CellFixedSelectedPositionW = NodePath("HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer/SpinBoxW")
+CellFixedSelectedValue = NodePath("HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer2/SpinBoxValue")
 
 [node name="VBoxContainer" parent="HBoxContainer" index="1"]
 custom_minimum_size = Vector2(460, 0)
@@ -14,16 +27,130 @@ custom_minimum_size = Vector2(460, 0)
 text = "inspector
 "
 
-[node name="NothingSelected" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="0"]
+[node name="OneSelected" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelected" index="0"]
+layout_mode = 2
+theme = ExtResource("2_bju3l")
+theme_type_variation = &"HeaderSmall"
+text = "Position: "
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelected" index="1"]
+layout_mode = 2
+theme = ExtResource("2_bju3l")
+theme_type_variation = &"HeaderSmall"
+text = "Value:"
+
+[node name="OneSelectedFixed" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed" index="0"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer" index="0"]
+layout_mode = 2
+theme = ExtResource("2_bju3l")
+text = "SET POSITION"
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer" index="1"]
+layout_mode = 2
+theme = ExtResource("2_bju3l")
+theme_type_variation = &"HeaderMedium"
+text = ":"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="SpinBoxX" type="SpinBox" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer" index="2"]
+layout_mode = 2
+theme = ExtResource("2_bju3l")
+min_value = -10000.0
+max_value = 10000.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+update_on_text_changed = true
+
+[node name="SpinBoxY" type="SpinBox" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer" index="3"]
+layout_mode = 2
+theme = ExtResource("2_bju3l")
+min_value = -10000.0
+max_value = 10000.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+update_on_text_changed = true
+
+[node name="SpinBoxZ" type="SpinBox" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer" index="4"]
+layout_mode = 2
+theme = ExtResource("2_bju3l")
+min_value = -10000.0
+max_value = 10000.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+update_on_text_changed = true
+
+[node name="SpinBoxW" type="SpinBox" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer" index="5"]
+layout_mode = 2
+theme = ExtResource("2_bju3l")
+min_value = -10000.0
+max_value = 10000.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+update_on_text_changed = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed" index="1"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer2" index="0"]
+layout_mode = 2
+theme = ExtResource("2_bju3l")
+theme_type_variation = &"HeaderSmall"
+text = "Value:"
+
+[node name="SpinBoxValue" type="SpinBox" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer2" index="1"]
+layout_mode = 2
+theme = ExtResource("2_bju3l")
+min_value = -10000.0
+max_value = 10000.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+update_on_text_changed = true
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed" index="2"]
+layout_mode = 2
+theme = ExtResource("2_bju3l")
+text = "DELETE"
+
+[node name="NothingSelected" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="2"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/NothingSelected" index="0"]
 layout_mode = 2
 theme = ExtResource("2_bju3l")
-theme_type_variation = &"HeaderLarge"
+theme_type_variation = &"HeaderMedium"
 text = "Nothing Selected"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="PointSelected" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="1"]
+[node name="TooManySelected" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="3"]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TooManySelected" index="0"]
+layout_mode = 2
+theme = ExtResource("2_bju3l")
+theme_type_variation = &"HeaderMedium"
+text = "multiple points selected"
+horizontal_alignment = 1
+uppercase = true
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer/Button" to="." method="On_FixedPositionSet"]
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer/SpinBoxX" to="." method="On_FixedPositionChange" binds= [0]]
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer/SpinBoxY" to="." method="On_FixedPositionChange" binds= [1]]
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer/SpinBoxZ" to="." method="On_FixedPositionChange" binds= [2]]
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer/SpinBoxW" to="." method="On_FixedPositionChange" binds= [3]]
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/HBoxContainer2/SpinBoxValue" to="." method="On_FixedValueChange"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OneSelectedFixed/Button" to="." method="On_FixedValueDelete"]

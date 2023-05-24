@@ -16,8 +16,6 @@ public partial class Selection : Node
 
 	public bool Select(PascalGridCellDisplay3D input, bool multi)
 	{
-		if (OnSelectionChanged != null) OnSelectionChanged(this, EventArgs.Empty);
-
 		if (!multi) // Single Select
 		{
 			_selectedCells.ForEach(cell => cell.SetSelected(false));
@@ -25,6 +23,7 @@ public partial class Selection : Node
 			
 			_selectedCells.Add(input);
 
+			if (OnSelectionChanged != null) OnSelectionChanged(this, EventArgs.Empty);
 			return true;
 		}
 		else
@@ -32,11 +31,13 @@ public partial class Selection : Node
 			if (_selectedCells.Contains(input))
 			{
 				_selectedCells.Remove(input);
+				if (OnSelectionChanged != null) OnSelectionChanged(this, EventArgs.Empty);
 				return false;
 			}
 			else
 			{
 				_selectedCells.Add(input);
+				if (OnSelectionChanged != null) OnSelectionChanged(this, EventArgs.Empty);
 				return true;
 			}
 		}
@@ -44,7 +45,19 @@ public partial class Selection : Node
 
 	public void ValidateSelected()
 	{
-		_selectedCells = _selectedCells.Where(cell => cell != null && cell.IsActive()).ToList();
+		_selectedCells = _selectedCells.Where(cell => cell != null && cell.IsActive() && IsInstanceValid(cell)).ToList();
 		_selectedCells.ForEach(cell => cell.SetSelected(true, false));
+		
+		if (OnSelectionChanged != null) OnSelectionChanged(this, EventArgs.Empty);
+	}
+
+	public int GetSelectedCount()
+	{
+		return _selectedCells.Count();
+	}
+
+	public PascalGridCellDisplay3D GetFirstSelected()
+	{
+		return _selectedCells.FirstOrDefault();
 	}
 }
