@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dvwvwmyjmiu0y"]
+[gd_scene load_steps=11 format=3 uid="uid://dvwvwmyjmiu0y"]
 
 [ext_resource type="Script" path="res://PascalGenerator.cs" id="1_f4tux"]
 [ext_resource type="Script" path="res://FreeLookCamera.gd" id="2_nllg1"]
 [ext_resource type="PackedScene" uid="uid://dhxn5evj33ow7" path="res://UI/Scenes/Panels/view_panel.tscn" id="3_ke7bu"]
+[ext_resource type="Script" path="res://SelectionFinder.cs" id="3_s4gn3"]
 [ext_resource type="PackedScene" uid="uid://q1f75f6mbd76" path="res://UI/Scenes/Panels/inspector.tscn" id="4_1o08w"]
+[ext_resource type="Script" path="res://MainUI.cs" id="4_qqfik"]
 [ext_resource type="PackedScene" uid="uid://crto2m73f33q4" path="res://UI/Scenes/Panels/global_settings.tscn" id="5_5rxg1"]
 [ext_resource type="PackedScene" uid="uid://b504u4coj382r" path="res://UI/Scenes/Panels/pattern_recognizer.tscn" id="6_637la"]
 [ext_resource type="PackedScene" uid="uid://bei1ya3na0an" path="res://UI/Scenes/Panels/compute_panel.tscn" id="6_rho2j"]
@@ -22,6 +24,9 @@ script = ExtResource("1_f4tux")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.60575)
 script = ExtResource("2_nllg1")
 
+[node name="Node3D" type="Node3D" parent="Camera3D"]
+script = ExtResource("3_s4gn3")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_icnej")
 
@@ -32,6 +37,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_qqfik")
 
 [node name="ViewPanel" parent="Control" instance=ExtResource("3_ke7bu")]
 layout_mode = 1
@@ -43,6 +50,7 @@ offset_top = 10.0
 offset_right = -10.0
 offset_bottom = 103.0
 grow_horizontal = 0
+mouse_filter = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 custom_minimum_size = Vector2(0, 800)
@@ -58,17 +66,21 @@ offset_right = -10.0
 offset_bottom = 610.0
 grow_horizontal = 0
 grow_vertical = 2
+mouse_filter = 0
 theme_override_constants/separation = 0
 
 [node name="Inspector" parent="Control/VBoxContainer" instance=ExtResource("4_1o08w")]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="GlobalSettings" parent="Control/VBoxContainer" instance=ExtResource("5_5rxg1")]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="PatternRecognizer" parent="Control/VBoxContainer" instance=ExtResource("6_637la")]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="ComputePanel" parent="Control" instance=ExtResource("6_rho2j")]
 layout_mode = 1
@@ -76,3 +88,4 @@ offset_left = 14.0
 offset_top = 15.0
 offset_right = 370.0
 offset_bottom = 108.0
+mouse_filter = 0

@@ -6,6 +6,7 @@ public partial class PascalGridCellDisplay3D : TextDisplay3D
 {
     private PascalGridCell _gridCell;
     private NinePatchRect _ninePatchRect;
+    private bool _isActive = false;
 
     public override void _Ready()
     {
@@ -14,39 +15,27 @@ public partial class PascalGridCellDisplay3D : TextDisplay3D
         _ninePatchRect = GetNode<NinePatchRect>("SubViewport/Control/MarginContainer/NinePatchRect");
         SetSelected(false);
     }
-    
+
+    private void OnSelectedInput(bool multi)
+    {
+        SetSelected(GetNode<Selection>("/root/Selection").Select(this, multi));
+    }
+
     public void SetGridCell(PascalGridCell gridCell)
     {
         _gridCell = gridCell;
     }
 
-    public void SetSelected(bool selected)
+    public PascalGridCell GetCell()
+    {
+        return _gridCell;
+    }
+
+    public void SetSelected(bool selected, bool fancy = true)
     {
         _ninePatchRect.Modulate = (selected ? new Color("ffffff") : new Color("000000"));
     }
 
-    public override void _Input(InputEvent inputEvent)
-    {
-        base._Input(inputEvent);
-        if (inputEvent is InputEventMouseButton && ((InputEventMouseButton)inputEvent).Pressed)
-        {
-            if (((InputEventMouseButton)inputEvent).ButtonIndex == MouseButton.Left)
-            {
-                
-            }
-        }
-    }
-
-    private void On_CollisionInputEvent(Node camera, InputEvent inputEvent, Vector3 position, Vector3 shape, int shapeIdx)
-    {
-        if (inputEvent is InputEventMouseButton)
-        {
-            if ((inputEvent as InputEventMouseButton).ButtonIndex == MouseButton.Left &&
-                (inputEvent as InputEventMouseButton).Pressed)
-            {
-                GD.Print("test2");
-            }
-        }
-        GD.Print("test");
-    }
+    public bool IsActive() { return _isActive; }
+    public void SetActive(bool isActive) { this._isActive = isActive; }
 }

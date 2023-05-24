@@ -7,11 +7,13 @@ public partial class PascalGenerator : Node3D
 {
 	private PascalGrid _grid = new PascalGrid();
 	private UIVars _uiVars;
-	private List<TextDisplay3D> textDisplays = new List<TextDisplay3D>();
+	private Selection _selection;
+	private List<PascalGridCellDisplay3D> _cellDisplays = new List<PascalGridCellDisplay3D>();
 
 	public override void _Ready()
 	{
 		_uiVars = GetNode<UIVars>("/root/UIVars");
+		_selection = GetNode<Selection>("/root/Selection");
 		_uiVars.PascalGenerator = this;
 		_grid.AddCell(new PascalGridCellFixed(1,new JamisonianCoordinate(0,0,0,0)));
 	}
@@ -31,25 +33,29 @@ public partial class PascalGenerator : Node3D
 		{
 			foreach (PascalGridCell cell in line.Cells)
 			{
-				PascalGridCellDisplay3D text = textScene.Instantiate() as PascalGridCellDisplay3D;
-				AddChild(text);
-				text.SetText(cell.Value.ToString());
-				text.SetGridCell(cell);
-				text.GlobalPosition = JamisonianToRectangular(cell.Position).coordinate;
-				textDisplays.Add(text);
+				PascalGridCellDisplay3D display = textScene.Instantiate() as PascalGridCellDisplay3D;
+				AddChild(display);
+				display.SetText(cell.Value.ToString());
+				display.SetGridCell(cell);
+				display.GlobalPosition = JamisonianToRectangular(cell.Position).coordinate;
+				display.SetActive(true);
+				_cellDisplays.Add(display);
 			}
 		}
+		_selection.ValidateSelected();
 	}
 
 	public void ClearAllValues()
 	{
-		foreach (TextDisplay3D textDisplay3D in textDisplays)
+		foreach (PascalGridCellDisplay3D textDisplay3D in _cellDisplays)
 		{
-			textDisplay3D.QueueFree();
+			textDisplay3D.SetActive(false);
+			textDisplay3D.Free(); // TODO - Object Pooling
 		}
 		
-		textDisplays.Clear();
+		_cellDisplays.Clear();
 		_grid.ClearValues();
+		_selection.ValidateSelected();
 	}
 	
 	private const float J2RHORIZONTALX = 0.5f; // Just the way the wind blows

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3h06fgbq4usi"]
+[gd_scene load_steps=7 format=3 uid="uid://d3h06fgbq4usi"]
 
 [ext_resource type="Script" path="res://PascalGridCellDisplay3D.cs" id="1_w76gr"]
 [ext_resource type="Texture2D" uid="uid://bh210ytknvg8c" path="res://bglongg.png" id="2_m6kc7"]
+[ext_resource type="Script" path="res://TextDisplaySelectionCollision.cs" id="3_u6ukr"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_u8urr"]
 viewport_path = NodePath("SubViewport")
@@ -78,10 +79,12 @@ layout_mode = 2
 text = "1"
 label_settings = SubResource("LabelSettings_i161l")
 
-[node name="Collision" type="Area3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+script = ExtResource("3_u6ukr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Collision"]
 shape = SubResource("SphereShape3D_trodv")
+script = ExtResource("1_w76gr")
 
-[connection signal="input_event" from="Collision" to="." method="On_CollisionInputEvent"]
+[connection signal="SelectedInput" from="StaticBody3D" to="." method="OnSelectedInput"]
