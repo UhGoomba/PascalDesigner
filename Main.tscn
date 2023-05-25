@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dvwvwmyjmiu0y"]
+[gd_scene load_steps=12 format=3 uid="uid://dvwvwmyjmiu0y"]
 
 [ext_resource type="Script" path="res://PascalGenerator.cs" id="1_f4tux"]
 [ext_resource type="Script" path="res://FreeLookCamera.gd" id="2_nllg1"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://crto2m73f33q4" path="res://UI/Scenes/Panels/global_settings.tscn" id="5_5rxg1"]
 [ext_resource type="PackedScene" uid="uid://b504u4coj382r" path="res://UI/Scenes/Panels/pattern_recognizer.tscn" id="6_637la"]
 [ext_resource type="PackedScene" uid="uid://bei1ya3na0an" path="res://UI/Scenes/Panels/compute_panel.tscn" id="6_rho2j"]
+[ext_resource type="PackedScene" uid="uid://c8enxh2siid1w" path="res://UI/Scenes/Panels/tools_panel.tscn" id="10_6hjyh"]
 
 [sub_resource type="Environment" id="Environment_icnej"]
 ambient_light_source = 2
@@ -84,8 +85,19 @@ mouse_filter = 2
 
 [node name="ComputePanel" parent="Control" instance=ExtResource("6_rho2j")]
 layout_mode = 1
-offset_left = 14.0
-offset_top = 15.0
-offset_right = 370.0
-offset_bottom = 108.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 394.0
+offset_bottom = 212.0
 mouse_filter = 0
+
+[node name="ToolsPanel" parent="Control" instance=ExtResource("10_6hjyh")]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -32.5
+offset_right = 366.0
+offset_bottom = 32.5
+grow_vertical = 2

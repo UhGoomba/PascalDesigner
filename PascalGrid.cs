@@ -89,13 +89,16 @@ public class PascalGrid
 			}
 		}
 
-		if (!_linesLeftInCompute.Any())
+		if (!_linesLeftInCompute.Contains(lineBelow.W))
 		{
 			foreach (PascalGridCell cell in lineBelow.Cells)
 			{
 				EvaluateCellValue(cell);
 			}
-
+		}
+		
+		if (!_linesLeftInCompute.Any())
+		{
 			if (OnComputeFinished != null) OnComputeFinished(this, EventArgs.Empty);
 		}
 	}
@@ -175,8 +178,10 @@ public class PascalGrid
 
 	public void RemoveCell(PascalGridCell cell)
 	{
-		if(cell is PascalGridCellFixed @fixed) _fixedCells.Remove(@fixed);
-		_lines[cell.Position.W].Cells.Remove(cell);
+		if(cell is PascalGridCellFixed) _fixedCells.Remove((PascalGridCellFixed)cell);
+		AddOrGetLine(cell.Position.W).Cells.Remove(cell);
+		
+		GD.Print("Test");
 	}
 
 	public void MoveCell(PascalGridCell cell, JamisonianCoordinate position)
@@ -192,7 +197,7 @@ public class PascalGrid
 			return;
 		}*/
 		
-		_lines[cell.Position.W].Cells.Remove(cell);
+		AddOrGetLine(cell.Position.W).Cells.Remove(cell);
 		cell.SetPosition(position);
 		AddCell(cell);
 	}
@@ -214,12 +219,17 @@ public class PascalGrid
 
 		return new PascalGridCell(_backgroundValue, position); // TODO - Change hardcoded background value
 	}
-	
+
 	public int GetValueAtPosition(JamisonianCoordinate position)
 	{
 		return GetCellAtPosition(position).Value;
 	}
 
+	public bool HasCellAtPosition(JamisonianCoordinate position)
+	{
+		return AddOrGetLine(position.W).Cells.Select(cell => cell.Position).Contains(position);
+	}
+	
 	public void SetBackgroundValue(int backgroundValue)
 	{
 		_backgroundValue = backgroundValue;

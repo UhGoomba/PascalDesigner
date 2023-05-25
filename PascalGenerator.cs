@@ -5,44 +5,44 @@ using PascalDesigner;
 
 public partial class PascalGenerator : Node3D
 {
-	private PascalGrid _grid = new PascalGrid();
+	public PascalGrid Grid { get; private set; }
 	private UIVars _uiVars;
 	private Selection _selection;
 	private List<PascalGridCellDisplay3D> _cellDisplays = new List<PascalGridCellDisplay3D>();
 
 	public override void _Ready()
 	{
+		Grid = new PascalGrid();;
 		_uiVars = GetNode<UIVars>("/root/UIVars");
 		_selection = GetNode<Selection>("/root/Selection");
 		_uiVars.PascalGenerator = this;
-		_grid.AddCell(new PascalGridCellFixed(1,new JamisonianCoordinate(0,0,0,0)));
+		Grid.AddCell(new PascalGridCellFixed(1,new JamisonianCoordinate(0,0,0,0)));
 	}
 
 	public void Compute()
 	{
 		ClearAllValues();
-		_grid.SetBackgroundValue(_uiVars.BackgroundValue);
-		_grid.SetTriangleCellStartingValue(_uiVars.TriangleCellStartingValue);
-		_grid.SetComputeOperator(_uiVars.Operator);
-		_grid.PrepareCompute(_uiVars.LinesToCompute);
-		_grid.FinishCompute();
+		Grid.SetBackgroundValue(_uiVars.BackgroundValue);
+		Grid.SetTriangleCellStartingValue(_uiVars.TriangleCellStartingValue);
+		Grid.SetComputeOperator(_uiVars.Operator);
+		Grid.PrepareCompute(_uiVars.LinesToCompute);
+		Grid.FinishCompute();
 
-		var renderData = _grid.GetRenderData();
-		var textScene = GD.Load<PackedScene>("res://text_display_3d.tscn");
-		foreach (PascalGridLine line in renderData.lines)
-		{
-			foreach (PascalGridCell cell in line.Cells)
-			{
-				PascalGridCellDisplay3D display = textScene.Instantiate() as PascalGridCellDisplay3D;
-				AddChild(display);
-				display.SetGridCell(cell, _grid);
-				display.SetActive(true);
-				_cellDisplays.Add(display);
-			}
-		}
+		var renderData = Grid.GetRenderData();
+		renderData.lines.ForEach(line => line.Cells.ForEach(RenderCell));
 		_selection.ValidateSelected();
 	}
 
+	public void RenderCell(PascalGridCell cell)
+	{
+		var textScene = GD.Load<PackedScene>("res://text_display_3d.tscn");
+		PascalGridCellDisplay3D display = textScene.Instantiate() as PascalGridCellDisplay3D;
+		AddChild(display);
+		display.SetGridCell(cell, Grid);
+		display.SetActive(true);
+		_cellDisplays.Add(display);
+	}
+	
 	public void ClearAllValues()
 	{
 		foreach (PascalGridCellDisplay3D textDisplay3D in _cellDisplays)
@@ -53,7 +53,7 @@ public partial class PascalGenerator : Node3D
 		}
 		
 		_cellDisplays.Clear();
-		_grid.ClearValues();
+		Grid.ClearValues();
 		_selection.ValidateSelected();
 	}
 	

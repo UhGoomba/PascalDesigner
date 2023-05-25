@@ -1,12 +1,44 @@
-[gd_scene load_steps=2 format=3 uid="uid://b504u4coj382r"]
+[gd_scene load_steps=4 format=3 uid="uid://b504u4coj382r"]
 
 [ext_resource type="PackedScene" uid="uid://cs7rpfx66pqs6" path="res://UI/Scenes/ui_panel.tscn" id="1_t7irh"]
+[ext_resource type="Script" path="res://UI/Scenes/Panels/PatternRecognizerPanel.cs" id="2_nnrj5"]
+[ext_resource type="Theme" uid="uid://cx0khfexmc27e" path="res://UI/Scenes/Panels/panelcontenttheme.tres" id="3_wp5xh"]
 
-[node name="PatternRecognizer" instance=ExtResource("1_t7irh")]
+[node name="PatternRecognizer" node_paths=PackedStringArray("TwoSelectedPanel", "OtherSelectedPanel", "SequenceLabel") instance=ExtResource("1_t7irh")]
 offset_right = 460.0
+script = ExtResource("2_nnrj5")
+TwoSelectedPanel = NodePath("HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TwoSelected")
+OtherSelectedPanel = NodePath("HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OtherSelected")
+SequenceLabel = NodePath("HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TwoSelected/Label")
 
 [node name="VBoxContainer" parent="HBoxContainer" index="1"]
 custom_minimum_size = Vector2(460, 0)
 
 [node name="Label" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer" index="1"]
 text = "pattern recognizer"
+
+[node name="TwoSelected" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TwoSelected" index="0"]
+layout_mode = 2
+theme = ExtResource("3_wp5xh")
+text = "Sequence:"
+text_overrun_behavior = 1
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TwoSelected" index="1"]
+layout_mode = 2
+theme = ExtResource("3_wp5xh")
+text = "DETECT"
+
+[node name="OtherSelected" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/OtherSelected" index="0"]
+layout_mode = 2
+theme = ExtResource("3_wp5xh")
+theme_type_variation = &"HeaderMedium"
+text = "Requires 2 Cells Selected"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/TwoSelected/Button" to="." method="On_DetectPattern"]

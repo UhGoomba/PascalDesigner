@@ -5,7 +5,7 @@ using PascalDesigner;
 public partial class PascalGridCellDisplay3D : TextDisplay3D
 {
     private PascalGridCell _gridCell;
-    private PascalGrid _grid;
+    public PascalGrid _grid;
     private NinePatchRect _ninePatchRect;
     private bool _isActive = false;
     private bool _isFixed = false;

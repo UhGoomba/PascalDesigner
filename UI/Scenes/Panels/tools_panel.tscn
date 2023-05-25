@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8enxh2siid1w"]
+
+[ext_resource type="PackedScene" uid="uid://cs7rpfx66pqs6" path="res://UI/Scenes/ui_panel.tscn" id="1_oqlwg"]
+[ext_resource type="Script" path="res://UI/Scenes/Panels/ToolsPanel.cs" id="2_8e8l0"]
+[ext_resource type="Theme" uid="uid://cx0khfexmc27e" path="res://UI/Scenes/Panels/panelcontenttheme.tres" id="2_bpjmy"]
+
+[node name="ToolsPanel" instance=ExtResource("1_oqlwg")]
+script = ExtResource("2_8e8l0")
+
+[node name="Label" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer" index="1"]
+text = "tools"
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer" index="0"]
+layout_mode = 2
+theme = ExtResource("2_bpjmy")
+text = "ADD FIXED CELL"
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/Content/MarginContainer/VBoxContainer/Button" to="." method="On_AddFixedCell"]

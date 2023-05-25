@@ -60,4 +60,9 @@ public partial class Selection : Node
 	{
 		return _selectedCells.FirstOrDefault();
 	}
+
+	public List<PascalGridCellDisplay3D> GetSelected()
+	{
+		return _selectedCells;
+	}
 }
